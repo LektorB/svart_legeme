@@ -31,7 +31,7 @@ app.layout = dbc.Container([
                 html.H4("Balanser energien som stråler inn og ut fra jorden ved å regulere gjennomsnittstemperaturen",
                         className="card-title", style={'font-size': '1.5vw'}),
                 dbc.Row([dbc.Col(
-                    dbc.Label("Temperatur målt i celsius"), width=2, style={'font-size': '.95vw'}),
+                    dbc.Label("Temperatur målt i celsius"), width=2, style={'font-size': '1.1vw'}),
 
                     dbc.Col(dcc.Slider(-50, 50, .01, value=-30, marks=None, id='temp_slide',
                                        tooltip={"placement": "bottom", "always_visible": True}),
@@ -40,7 +40,7 @@ app.layout = dbc.Container([
 
                 dbc.Row([
                     dbc.Col(
-                        dbc.Label("Albedo:"), width=2, style={'font-size': '.95vw'}),
+                        dbc.Label("Albedo:"), width=2, style={'font-size': '1.1vw'}),
                     dbc.Col(dcc.Slider(0, 1, .01, value=0.306, marks=None, id='alfa_slide',
                                        tooltip={"placement": "bottom", "always_visible": True})
                             , )
@@ -62,7 +62,7 @@ app.layout = dbc.Container([
     ])
 
 
-])
+], fluid='lg')
 
 
 # _________________________________________________________________________________________________________
@@ -143,28 +143,28 @@ def soyle(temp, alfa):
         xref="paper", yref="paper",
         x=0.51, y=1,
         showarrow=False,
-        font=dict(size=16),
+        font=dict(size=12),
     )
 
     fig2.add_annotation(
         text="Inn",
         x=0.5, y=20,
         showarrow=False, textangle=0,
-        font=dict(size=16),
+        font=dict(size=12),
     )
 
     fig2.add_annotation(
         text="Ut",
         x=2, y=20,
         showarrow=False, textangle=0,
-        font=dict(size=16),
+        font=dict(size=12),
     )
 
     fig2.add_annotation(
         text="Bal.",
         x=3.5, y=20,
         showarrow=False, textangle=0,
-        font=dict(size=16),
+        font=dict(size=12),
     )
 
     fig2.update_yaxes(title=dict(text=r'$W / m^2$'))
