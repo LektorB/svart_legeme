@@ -20,7 +20,7 @@ load_figure_template(Template)
 app.layout = dbc.Container([
     dbc.Row([
         dbc.Col([
-            html.H1('Model uten atmoafære',
+            html.H1('Model uten atmosfære',
                     className='text-center text-primary mb-4')
         ], width=12, style={'font-size': '2.5vw'})
     ], justify='center'),
@@ -43,7 +43,7 @@ app.layout = dbc.Container([
                         dbc.Label("Albedo:"), width=2, style={'font-size': '1.1vw'}),
                     dbc.Col(dcc.Slider(0, 1, .01, value=0.306, marks=None, id='alfa_slide',
                                        tooltip={"placement": "bottom", "always_visible": True})
-                            , )
+                            )
                 ])
             ])
         ], color="primary", inverse=True)
@@ -102,7 +102,7 @@ def piler(temp, alfa):
                            arrowwidth=skala, startarrowhead=4, startarrowsize=0.3, text="Varmestråling",
                            arrowcolor="red", )
 
-    fig.update_layout(xaxis_range=[0.3, 1.2], yaxis_range=[0, 2], margin_l=0, margin_r=0)
+    fig.update_layout(xaxis_range=[0.3, 1.2], yaxis_range=[0, 2], margin_l=0, margin_r=0, height=350)
 
     fig.add_hrect(y0=0, y1=0.2, fillcolor="darkolivegreen", opacity=0.5, layer="below", line_width=0)
     fig.update_yaxes(showgrid=False, title=None, showticklabels=False)
@@ -116,25 +116,25 @@ def piler(temp, alfa):
     Input(component_id='alfa_slide', component_property='value')
 )
 def soyle(temp, alfa):
-    U_jord = sigma * (temp + 273) ** 4
-    I_max = I_sol / 4
-    I_abs = I_max * (1 - alfa)
+    u_jord = sigma * (temp + 273) ** 4
+    i_max = I_sol / 4
+    i_abs = i_max * (1 - alfa)
 
-    grenser = [-8, I_abs - U_jord, I_max]  # for å bestemme ymax og ymin til skalering
+    grenser = [-8, i_abs - u_jord, i_max]  # for å bestemme ymax og ymin til skalering
 
     fig2 = px.line(x=[0], y=[0])
 
     # bakken
-    fig2.add_shape(type="rect", x0=0, y0=I_abs, x1=1, y1=I_max,
+    fig2.add_shape(type="rect", x0=0, y0=i_abs, x1=1, y1=i_max,
                    line=dict(color="snow", width=2, ), fillcolor="lightgrey")
 
-    fig2.add_shape(type="rect", x0=0, y0=0, x1=1, y1=I_abs,
+    fig2.add_shape(type="rect", x0=0, y0=0, x1=1, y1=i_abs,
                    line=dict(color="gold", width=2, ), fillcolor="yellow")
 
-    fig2.add_shape(type="rect", x0=1.5, y0=I_abs, x1=2.5, y1=I_abs - U_jord,
+    fig2.add_shape(type="rect", x0=1.5, y0=i_abs, x1=2.5, y1=i_abs - u_jord,
                    line=dict(color="Maroon", width=2, ), fillcolor="Red")
 
-    fig2.add_shape(type="rect", x0=3, y0=0, x1=4, y1=I_abs - U_jord,
+    fig2.add_shape(type="rect", x0=3, y0=0, x1=4, y1=i_abs - u_jord,
                    line=dict(color="RoyalBlue", width=2, ), fillcolor="LightSkyBlue")
 
     # tekst
@@ -171,7 +171,7 @@ def soyle(temp, alfa):
     fig2.update_xaxes(title=dict(text=r''))
     fig2.update_layout(title='', xaxis_range=[-0.3, 4.5], yaxis_range=[1.2 * min(grenser), 1.15 * max(grenser)],
                        legend=dict(orientation="h", y=1.15, xanchor="center", x=0.5,
-                                   title=""))  # , yaxis_range = [0, 2],margin_l=0,margin_r=0)
+                                   height=350, title=""))  # , yaxis_range = [0, 2],margin_l=0,margin_r=0)
     fig2.update_xaxes(showgrid=False, title=None, showticklabels=False)
 
     return fig2
